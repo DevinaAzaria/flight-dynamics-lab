@@ -1,0 +1,9 @@
+{
+  "name": "flight-dynamics-lab",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "An interactive aerodynamics laboratory by Devina Azaria.",
+  "scripts": { "start": "python3 -m http.server 4174", "test": "node --test" },
+  "license": "MIT"
+}
