@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Laboratorium dinamika penerbangan untuk memahami lift, drag, stall speed, dan glide ratio." />
+    <title>Flight Dynamics Lab — Devina Azaria</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav>
+        <a class="brand" href="#top">FLIGHT DYNAMICS LAB</a>
+        <a href="#experiments">Eksperimen</a>
+        <a href="#method">Metode</a>
+        <a href="https://github.com/DevinaAzaria" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="hero-copy">
+        <p class="eyebrow">Devina Azaria · Student Research Project</p>
+        <h1>Memahami gaya<br /><span>yang membuat terbang.</span></h1>
+        <p class="lead">Laboratorium interaktif untuk mengeksplorasi lift, drag, dan perilaku dasar pesawat melalui model aerodinamika yang transparan.</p>
+        <a class="button" href="#experiments">Mulai eksperimen ↓</a>
+      </div>
+      <div class="plane" aria-hidden="true"><span></span><i></i></div>
+    </header>
+
+    <main>
+      <section class="intro" id="experiments">
+        <p class="section-number">01 / EKSPERIMEN</p>
+        <h2>Dari gaya<br />menuju keputusan.</h2>
+        <p>Ubah satu parameter, lihat dampaknya pada pesawat. Setiap hasil menampilkan satuan dan persamaan agar intuisi tetap terhubung dengan fisika.</p>
+      </section>
+
+      <section class="lab-grid">
+        <article class="card">
+          <div class="card-head"><span>LIFT &amp; DRAG</span><strong>01</strong></div>
+          <h3>Gaya aerodinamika <small>Aerodynamic Forces</small></h3>
+          <p>Hitung lift dan drag dari kondisi udara, kecepatan, luas sayap, dan koefisien aerodinamika.</p>
+          <div class="fields three">
+            <label>Kecepatan <span>m/s</span><input id="speed" type="number" min="1" step="1" value="60" /></label>
+            <label>Luas sayap <span>m²</span><input id="area" type="number" min="0.1" step="0.1" value="16" /></label>
+            <label>Densitas udara <span>kg/m³</span><input id="density" type="number" min="0.01" step="0.01" value="1.225" /></label>
+            <label>Koef. lift <span>CL</span><input id="cl" type="number" min="0" step="0.01" value="0.5" /></label>
+            <label>Koef. drag <span>CD</span><input id="cd" type="number" min="0" step="0.01" value="0.03" /></label>
+          </div>
+          <button data-calculate="forces">Hitung gaya</button>
+          <output id="forces-result">Lift 17.64 kN · Drag 1.06 kN</output>
+          <p class="formula">F = ½ρV²SC</p>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span>STALL SPEED</span><strong>02</strong></div>
+          <h3>Kecepatan stall <small>Stall Speed</small></h3>
+          <p>Perkirakan kecepatan minimum agar sayap tetap menghasilkan lift yang menopang berat pesawat.</p>
+          <div class="fields">
+            <label>Massa pesawat <span>kg</span><input id="mass" type="number" min="1" step="1" value="1200" /></label>
+            <label>Luas sayap <span>m²</span><input id="stall-area" type="number" min="0.1" step="0.1" value="16" /></label>
+            <label>CL maksimum <span>CLmax</span><input id="clmax" type="number" min="0.01" step="0.01" value="1.6" /></label>
+            <label>Densitas udara <span>kg/m³</span><input id="stall-density" type="number" min="0.01" step="0.01" value="1.225" /></label>
+          </div>
+          <button data-calculate="stall">Hitung stall speed</button>
+          <output id="stall-result">27.4 m/s · 98.62 km/h</output>
+          <p class="formula">V<sub>s</sub> = √(2W / ρSCL<sub>max</sub>)</p>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><span>GLIDE PERFORMANCE</span><strong>03</strong></div>
+          <h3>Rasio luncur <small>Glide Ratio</small></h3>
+          <p>Hubungkan lift-to-drag ratio dengan sudut luncur untuk membaca efisiensi aerodinamika.</p>
+          <div class="fields">
+            <label>Koef. lift <span>CL</span><input id="glide-cl" type="number" min="0.01" step="0.01" value="0.8" /></label>
+            <label>Koef. drag <span>CD</span><input id="glide-cd" type="number" min="0.001" step="0.001" value="0.08" /></label>
+          </div>
+          <button data-calculate="glide">Hitung rasio luncur</button>
+          <output id="glide-result">L/D 10.00 · 5.71°</output>
+          <p class="formula">L/D = CL/CD · γ = arctan(D/L)</p>
+        </article>
+      </section>
+
+      <section class="method" id="method">
+        <div><p class="section-number">02 / METODE</p><h2>Model yang<br />dapat diperiksa.</h2></div>
+        <ol>
+          <li><strong>Parameter</strong><span>Tetapkan massa, geometri, kondisi udara, dan koefisien.</span></li>
+          <li><strong>Persamaan</strong><span>Gunakan model sederhana yang menjelaskan hubungan antarvariabel.</span></li>
+          <li><strong>Uji</strong><span>Bandingkan hasil dengan contoh yang dapat dihitung secara manual.</span></li>
+          <li><strong>Batasan</strong><span>Catat bahwa aliran nyata bersifat kompleks dan model ini adalah pendekatan.</span></li>
+        </ol>
+      </section>
+    </main>
+
+    <footer><span>Flight Dynamics Lab v0.1.0</span><span>Living student portfolio · Portofolio yang terus bertumbuh.</span></footer>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
