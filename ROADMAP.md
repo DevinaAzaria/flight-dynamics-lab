@@ -13,8 +13,8 @@
 
 - [x] Dynamic-pressure visualization
 - [x] Lift and drag curves across airspeed
-- [ ] Stall-speed comparison by aircraft mass and wing area
-- [ ] Sensitivity notes and uncertainty ranges
+- [x] Stall-speed comparison by aircraft mass and wing area
+- [x] Sensitivity notes and uncertainty ranges
 
 ## v0.3 — Aircraft Motion
 
