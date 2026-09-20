@@ -30,3 +30,11 @@ label { display:block; margin-top:1rem; color:#c7d0d3; font-size:.72rem; text-tr
 #envelope-chart .chart-label { fill:#83959b; font-size:15px; font-family:ui-monospace,monospace; }
 #envelope-summary { border-top:1px solid var(--line); padding:1rem 0 0; min-height:auto; font-size:.88rem; }
 @media (max-width:850px) { .envelope-section{grid-template-columns:1fr;padding-top:6rem}.chart-panel{padding:.8rem}.chart-legend{justify-content:flex-start} }
+
+.pressure-block { margin-top:1rem; padding-top:1rem; border-top:1px solid var(--line); }
+.pressure-heading { display:flex; justify-content:space-between; gap:1rem; color:var(--muted); font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; }
+.pressure-heading strong { color:#c7d0d3; }
+#pressure-chart { width:100%; height:auto; display:block; margin-top:.35rem; overflow:visible; }
+#pressure-chart .axis { stroke:#41535b; stroke-width:1; }
+#pressure-chart .pressure-line { fill:none; stroke:#c7d0d3; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+#pressure-chart .chart-label { fill:#83959b; font-size:15px; font-family:ui-monospace,monospace; }
