@@ -14,6 +14,7 @@
         <a class="brand" href="#top">FLIGHT DYNAMICS LAB</a>
         <a href="#experiments">Eksperimen</a>
         <a href="#envelope">Envelope</a>
+        <a href="#trade-studies">Trade studies</a>
         <a href="#method">Metode</a>
         <a href="https://github.com/DevinaAzaria/flight-dynamics-lab" rel="noreferrer">GitHub</a>
       </nav>
@@ -102,8 +103,51 @@
         </div>
       </section>
 
+      <section class="trade-section" id="trade-studies">
+        <div class="trade-copy">
+          <p class="section-number">03 / TRADE STUDIES</p>
+          <h2>Membandingkan<br />konsekuensi desain.</h2>
+          <p>Gunakan parameter dari eksperimen Stall Speed sebagai baseline. Tabel membandingkan perubahan massa dan luas sayap, sedangkan sensitivity panel menunjukkan bagaimana ketidakpastian input memengaruhi estimasi stall speed.</p>
+          <div class="trade-controls">
+            <label>Rentang perbandingan <span>± %</span><input id="comparison-spread" type="number" min="1" max="90" step="1" value="20" /></label>
+            <label>Ketidakpastian input <span>± %</span><input id="uncertainty" type="number" min="0.1" max="50" step="0.5" value="5" /></label>
+          </div>
+          <button data-calculate="trade">Perbarui trade study</button>
+          <p class="note">Rentang uncertainty adalah <em>corner-case interval</em> dari variasi input yang ditentukan, bukan confidence interval statistik dan bukan prediksi perilaku pesawat nyata.</p>
+        </div>
+
+        <div class="trade-results">
+          <article class="trade-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-number">MASS × WING AREA</p>
+                <h3>Stall-speed comparison</h3>
+              </div>
+              <span>baseline ditandai</span>
+            </div>
+            <div class="table-scroll">
+              <table id="stall-comparison-table" aria-label="Perbandingan stall speed berdasarkan massa dan luas sayap"></table>
+            </div>
+            <p class="micro-note">Pada kondisi lain tetap, massa lebih besar menaikkan stall speed; luas sayap lebih besar menurunkannya.</p>
+          </article>
+
+          <article class="trade-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-number">SENSITIVITY</p>
+                <h3>Uncertainty range</h3>
+              </div>
+              <span>one-at-a-time</span>
+            </div>
+            <div id="sensitivity-list" class="sensitivity-list" aria-live="polite"></div>
+            <output id="sensitivity-summary"></output>
+            <p class="micro-note">Setiap baris mengubah satu parameter sementara parameter lain tetap. Corner-case range menggabungkan arah variasi yang meminimalkan dan memaksimalkan stall speed.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="method" id="method">
-        <div><p class="section-number">03 / METODE</p><h2>Model yang<br />dapat diperiksa.</h2></div>
+        <div><p class="section-number">04 / METODE</p><h2>Model yang<br />dapat diperiksa.</h2></div>
         <ol>
           <li><strong>Parameter</strong><span>Tetapkan massa, geometri, kondisi udara, dan koefisien.</span></li>
           <li><strong>Persamaan</strong><span>Gunakan model sederhana yang menjelaskan hubungan antarvariabel.</span></li>
