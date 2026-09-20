@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Check browser JavaScript syntax
+        run: node --check src/app.js && node --check src/dynamics.js
+
       - name: Run scientific model tests
         run: npm test
 

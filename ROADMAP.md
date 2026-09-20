@@ -11,8 +11,8 @@
 
 ## v0.2 — Performance Envelope
 
-- [ ] Dynamic-pressure visualization
-- [ ] Lift and drag curves across airspeed
+- [x] Dynamic-pressure visualization
+- [x] Lift and drag curves across airspeed
 - [ ] Stall-speed comparison by aircraft mass and wing area
 - [ ] Sensitivity notes and uncertainty ranges
 
