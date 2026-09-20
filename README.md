@@ -25,7 +25,9 @@ The laboratory complements [`astronomy-lab`](https://github.com/DevinaAzaria/ast
 1. **Aerodynamic forces** — calculates lift and drag from dynamic pressure and coefficients.
 2. **Stall speed** — estimates the minimum speed at which lift balances aircraft weight.
 3. **Glide performance** — converts lift-to-drag ratio into an approximate glide angle.
-4. **Performance envelope** — sweeps airspeed to visualize dynamic pressure and lift/drag trends.\n5. **Stall trade study** — compares stall speed across aircraft mass and wing-area variations.\n6. **Sensitivity & uncertainty** — shows one-at-a-time sensitivity and a bounded corner-case range for stall speed.
+4. **Performance envelope** — sweeps airspeed to visualize dynamic pressure and lift/drag trends.
+5. **Stall trade study** — compares stall speed across aircraft mass and wing-area variations.
+6. **Sensitivity & uncertainty** — shows one-at-a-time sensitivity and a bounded corner-case range for stall speed.
 
 ## Scientific assumptions
 
@@ -33,7 +35,8 @@ The laboratory complements [`astronomy-lab`](https://github.com/DevinaAzaria/ast
 - The aircraft is treated as steady and level for the lift calculation.
 - Stall speed uses a maximum lift coefficient and standard gravity.
 - Glide angle uses the simplified relation `tan(γ) = D/L`.
-- Sensitivity ranges are deterministic input variations, not statistical confidence intervals.\n- Real aircraft have compressibility, turbulence, Reynolds-number, trim, and three-dimensional effects that are outside the current simplified model.
+- Sensitivity ranges are deterministic input variations, not statistical confidence intervals.
+- Real aircraft have compressibility, turbulence, Reynolds-number, trim, and three-dimensional effects that are outside the current simplified model.
 
 ## Run locally
 
