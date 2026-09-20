@@ -46,8 +46,9 @@ const svgElement = (name, attributes = {}) => {
 
 function renderEnvelope() {
   const chart = document.querySelector("#envelope-chart");
+  const pressureChart = document.querySelector("#pressure-chart");
   const summary = document.querySelector("#envelope-summary");
-  if (!chart || !summary) return;
+  if (!chart || !pressureChart || !summary) return;
 
   try {
     const sweep = performanceSweep({
@@ -66,7 +67,7 @@ function renderEnvelope() {
     const padY = 36;
     const plotWidth = width - padX * 2;
     const plotHeight = height - padY * 2;
-    const maxForce = Math.max(...sweep.points.map((point) => point.lift));
+    const maxForce = Math.max(...sweep.points.flatMap((point) => [point.lift, point.drag]));
 
     const x = (speed) => padX + ((speed - sweep.minSpeed) / (sweep.maxSpeed - sweep.minSpeed)) * plotWidth;
     const y = (force) => height - padY - (force / maxForce) * plotHeight;
@@ -95,11 +96,30 @@ function renderEnvelope() {
       chart.append(text);
     });
 
+    const pressureHeight = 170;
+    const pressurePadY = 24;
+    const maxPressure = Math.max(...sweep.points.map((point) => point.dynamicPressure));
+    const pressureY = (pressure) => pressureHeight - pressurePadY - (pressure / maxPressure) * (pressureHeight - pressurePadY * 2);
+    const pressurePath = sweep.points
+      .map((point, index) => `${index === 0 ? "M" : "L"} ${x(point.speed).toFixed(2)} ${pressureY(point.dynamicPressure).toFixed(2)}`)
+      .join(" ");
+
+    pressureChart.replaceChildren(
+      svgElement("line", { x1:padX, y1:pressureHeight-pressurePadY, x2:width-padX, y2:pressureHeight-pressurePadY, class:"axis" }),
+      svgElement("line", { x1:padX, y1:pressurePadY, x2:padX, y2:pressureHeight-pressurePadY, class:"axis" }),
+      svgElement("path", { d:pressurePath, class:"pressure-line" })
+    );
+
+    const pressureLabel = svgElement("text", { x:padX+8, y:pressurePadY+14, class:"chart-label" });
+    pressureLabel.textContent = `${number.format(maxPressure / 1000)} kPa`;
+    pressureChart.append(pressureLabel);
+
     const last = sweep.points.at(-1);
     summary.value = `Pada ${number.format(last.speed)} m/s: q = ${number.format(last.dynamicPressure / 1000)} kPa · Lift = ${number.format(last.lift / 1000)} kN · Drag = ${number.format(last.drag / 1000)} kN`;
     summary.classList.remove("error");
   } catch (error) {
     chart.replaceChildren();
+    pressureChart.replaceChildren();
     summary.value = error.message;
     summary.classList.add("error");
   }
