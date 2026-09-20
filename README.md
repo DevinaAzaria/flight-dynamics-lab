@@ -5,7 +5,7 @@ An interactive student laboratory for understanding the forces and decisions beh
 > **Ringkasan Indonesia:** Flight Dynamics Lab adalah laboratorium interaktif untuk mempelajari lift, drag, stall speed, dan glide ratio melalui model aerodinamika sederhana yang transparan dan dapat diuji.
 
 **Author:** Devina Azaria  
-**Status:** v0.1.0 — foundational release  
+**Status:** v0.2 — in progress  
 **Focus:** aerodynamics, physics, scientific computing, and aerospace engineering
 
 ## Live laboratory
@@ -24,7 +24,7 @@ The laboratory complements [`astronomy-lab`](https://github.com/DevinaAzaria/ast
 
 1. **Aerodynamic forces** — calculates lift and drag from dynamic pressure and coefficients.
 2. **Stall speed** — estimates the minimum speed at which lift balances aircraft weight.
-3. **Glide performance** — converts lift-to-drag ratio into an approximate glide angle.
+3. **Glide performance** — converts lift-to-drag ratio into an approximate glide angle.\n4. **Performance envelope preview** — sweeps airspeed to visualize dynamic pressure and lift/drag trends.
 
 ## Scientific assumptions
 
