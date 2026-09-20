@@ -1,4 +1,11 @@
-import { aerodynamicForces, glidePerformance, performanceSweep, stallSpeed } from "./dynamics.js";
+import {
+  aerodynamicForces,
+  glidePerformance,
+  performanceSweep,
+  stallComparison,
+  stallSensitivity,
+  stallSpeed
+} from "./dynamics.js";
 
 const number = new Intl.NumberFormat("id-ID", { maximumFractionDigits: 2 });
 const value = (id) => document.querySelector(`#${id}`).value;
@@ -7,6 +14,13 @@ const output = (id, calculate) => {
   try { element.value = calculate(); element.classList.remove("error"); }
   catch (error) { element.value = error.message; element.classList.add("error"); }
 };
+
+const currentStallInputs = () => ({
+  mass: value("mass"),
+  density: value("stall-density"),
+  area: value("stall-area"),
+  maxLiftCoefficient: value("clmax")
+});
 
 document.querySelector('[data-calculate="forces"]').addEventListener("click", () => {
   output("forces-result", () => {
@@ -22,15 +36,13 @@ document.querySelector('[data-calculate="forces"]').addEventListener("click", ()
   renderEnvelope();
 });
 
-document.querySelector('[data-calculate="stall"]').addEventListener("click", () => output("stall-result", () => {
-  const result = stallSpeed({
-    mass:value("mass"),
-    density:value("stall-density"),
-    area:value("stall-area"),
-    maxLiftCoefficient:value("clmax")
+document.querySelector('[data-calculate="stall"]').addEventListener("click", () => {
+  output("stall-result", () => {
+    const result = stallSpeed(currentStallInputs());
+    return `${number.format(result.speed)} m/s · ${number.format(result.kmh)} km/h`;
   });
-  return `${number.format(result.speed)} m/s · ${number.format(result.kmh)} km/h`;
-}));
+  renderTradeStudies();
+});
 
 document.querySelector('[data-calculate="glide"]').addEventListener("click", () => output("glide-result", () => {
   const result = glidePerformance(value("glide-cl"), value("glide-cd"));
@@ -125,5 +137,106 @@ function renderEnvelope() {
   }
 }
 
+function renderComparisonTable(comparison) {
+  const table = document.querySelector("#stall-comparison-table");
+  table.replaceChildren();
+
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
+  const corner = document.createElement("th");
+  corner.textContent = "Massa ↓ / Wing area →";
+  headerRow.append(corner);
+
+  comparison.areas.forEach((area) => {
+    const th = document.createElement("th");
+    th.textContent = `${number.format(area)} m²`;
+    headerRow.append(th);
+  });
+  thead.append(headerRow);
+
+  const tbody = document.createElement("tbody");
+  comparison.masses.forEach((mass, rowIndex) => {
+    const row = document.createElement("tr");
+    const rowHeader = document.createElement("th");
+    rowHeader.scope = "row";
+    rowHeader.textContent = `${number.format(mass)} kg`;
+    row.append(rowHeader);
+
+    comparison.speeds[rowIndex].forEach((speed, columnIndex) => {
+      const cell = document.createElement("td");
+      cell.textContent = `${number.format(speed)} m/s`;
+      if (rowIndex === 1 && columnIndex === 1) cell.classList.add("baseline-cell");
+      row.append(cell);
+    });
+
+    tbody.append(row);
+  });
+
+  table.append(thead, tbody);
+}
+
+function renderSensitivity(sensitivity) {
+  const container = document.querySelector("#sensitivity-list");
+  const summary = document.querySelector("#sensitivity-summary");
+  container.replaceChildren();
+
+  sensitivity.variables.forEach((item) => {
+    const row = document.createElement("div");
+    row.className = "sensitivity-row";
+
+    const label = document.createElement("strong");
+    label.textContent = item.label;
+
+    const range = document.createElement("span");
+    range.textContent = `${number.format(item.minSpeed)}–${number.format(item.maxSpeed)} m/s`;
+
+    const impact = document.createElement("small");
+    impact.textContent = `max Δ ${number.format(item.maxDeviationPercent)}%`;
+
+    row.append(label, range, impact);
+    container.append(row);
+  });
+
+  const minDelta = (sensitivity.combined.minSpeed / sensitivity.baseline.speed - 1) * 100;
+  const maxDelta = (sensitivity.combined.maxSpeed / sensitivity.baseline.speed - 1) * 100;
+
+  summary.value =
+    `Baseline ${number.format(sensitivity.baseline.speed)} m/s · corner-case range ` +
+    `${number.format(sensitivity.combined.minSpeed)}–${number.format(sensitivity.combined.maxSpeed)} m/s ` +
+    `(${number.format(minDelta)}% hingga +${number.format(maxDelta)}%)`;
+  summary.classList.remove("error");
+}
+
+function renderTradeStudies() {
+  const table = document.querySelector("#stall-comparison-table");
+  const sensitivityList = document.querySelector("#sensitivity-list");
+  const summary = document.querySelector("#sensitivity-summary");
+
+  try {
+    const base = currentStallInputs();
+    const comparison = stallComparison({
+      ...base,
+      spreadPercent: value("comparison-spread")
+    });
+    const sensitivity = stallSensitivity({
+      ...base,
+      uncertaintyPercent: value("uncertainty")
+    });
+
+    renderComparisonTable(comparison);
+    renderSensitivity(sensitivity);
+    table.closest(".trade-panel").classList.remove("error-panel");
+  } catch (error) {
+    table.replaceChildren();
+    sensitivityList.replaceChildren();
+    summary.value = error.message;
+    summary.classList.add("error");
+    table.closest(".trade-panel").classList.add("error-panel");
+  }
+}
+
 document.querySelector('[data-calculate="envelope"]').addEventListener("click", renderEnvelope);
+document.querySelector('[data-calculate="trade"]').addEventListener("click", renderTradeStudies);
+
 renderEnvelope();
+renderTradeStudies();
