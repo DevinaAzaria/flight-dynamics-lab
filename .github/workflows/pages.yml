@@ -33,6 +33,7 @@ jobs:
         run: npm test
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: test
     environment:
       name: github-pages
