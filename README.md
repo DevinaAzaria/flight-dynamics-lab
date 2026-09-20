@@ -8,6 +8,12 @@ An interactive student laboratory for understanding the forces and decisions beh
 **Status:** v0.1.0 — foundational release  
 **Focus:** aerodynamics, physics, scientific computing, and aerospace engineering
 
+## Live laboratory
+
+**GitHub Pages:** https://devinaazaria.github.io/flight-dynamics-lab/
+
+Deployment is automated from the `main` branch. Every deployment runs the scientific model tests before publishing the static laboratory.
+
 ## Why this project exists
 
 Flight is a useful bridge between classroom physics and engineering decisions. This project turns a few core aerodynamic relationships into small experiments so that changing speed, wing area, air density, mass, or aerodynamic coefficients produces an explainable result.
