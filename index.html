@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Laboratorium dinamika penerbangan untuk memahami lift, drag, stall speed, dan glide ratio." />
+    <meta name="description" content="Laboratorium dinamika penerbangan untuk memahami lift, drag, stall speed, glide ratio, dan performance envelope." />
     <title>Flight Dynamics Lab — Devina Azaria</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./src/styles.css" />
@@ -13,8 +13,9 @@
       <nav>
         <a class="brand" href="#top">FLIGHT DYNAMICS LAB</a>
         <a href="#experiments">Eksperimen</a>
+        <a href="#envelope">Envelope</a>
         <a href="#method">Metode</a>
-        <a href="https://github.com/DevinaAzaria" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/DevinaAzaria/flight-dynamics-lab" rel="noreferrer">GitHub</a>
       </nav>
       <div class="hero-copy">
         <p class="eyebrow">Devina Azaria · Student Research Project</p>
@@ -45,7 +46,7 @@
             <label>Koef. drag <span>CD</span><input id="cd" type="number" min="0" step="0.01" value="0.03" /></label>
           </div>
           <button data-calculate="forces">Hitung gaya</button>
-          <output id="forces-result">Lift 17.64 kN · Drag 1.06 kN</output>
+          <output id="forces-result">Lift 17,64 kN · Drag 1,06 kN</output>
           <p class="formula">F = ½ρV²SC</p>
         </article>
 
@@ -60,7 +61,7 @@
             <label>Densitas udara <span>kg/m³</span><input id="stall-density" type="number" min="0.01" step="0.01" value="1.225" /></label>
           </div>
           <button data-calculate="stall">Hitung stall speed</button>
-          <output id="stall-result">27.4 m/s · 98.62 km/h</output>
+          <output id="stall-result">27,4 m/s · 98,62 km/h</output>
           <p class="formula">V<sub>s</sub> = √(2W / ρSCL<sub>max</sub>)</p>
         </article>
 
@@ -73,13 +74,32 @@
             <label>Koef. drag <span>CD</span><input id="glide-cd" type="number" min="0.001" step="0.001" value="0.08" /></label>
           </div>
           <button data-calculate="glide">Hitung rasio luncur</button>
-          <output id="glide-result">L/D 10.00 · 5.71°</output>
+          <output id="glide-result">L/D 10,00 · 5,71°</output>
           <p class="formula">L/D = CL/CD · γ = arctan(D/L)</p>
         </article>
       </section>
 
+      <section class="envelope-section" id="envelope">
+        <div class="envelope-copy">
+          <p class="section-number">02 / PERFORMANCE ENVELOPE</p>
+          <h2>Melihat tren,<br />bukan satu angka.</h2>
+          <p>Kurva menggunakan parameter densitas udara, luas sayap, CL, dan CD dari eksperimen Lift &amp; Drag. Dengan koefisien tetap, gaya meningkat sebanding dengan kuadrat kecepatan.</p>
+          <label class="envelope-control">Kecepatan maksimum <span>m/s</span><input id="envelope-max" type="number" min="20" step="10" value="120" /></label>
+          <button data-calculate="envelope">Perbarui kurva</button>
+          <p class="note">Model ini belum memasukkan perubahan CL/CD terhadap angle of attack, Mach, atau Reynolds number. Itu adalah batas penting dari visualisasi v0.2 ini.</p>
+        </div>
+        <div class="chart-panel">
+          <div class="chart-legend">
+            <span><i class="legend-line lift"></i> Lift</span>
+            <span><i class="legend-line drag"></i> Drag</span>
+          </div>
+          <svg id="envelope-chart" viewBox="0 0 900 320" role="img" aria-label="Kurva lift dan drag terhadap kecepatan"></svg>
+          <output id="envelope-summary"></output>
+        </div>
+      </section>
+
       <section class="method" id="method">
-        <div><p class="section-number">02 / METODE</p><h2>Model yang<br />dapat diperiksa.</h2></div>
+        <div><p class="section-number">03 / METODE</p><h2>Model yang<br />dapat diperiksa.</h2></div>
         <ol>
           <li><strong>Parameter</strong><span>Tetapkan massa, geometri, kondisi udara, dan koefisien.</span></li>
           <li><strong>Persamaan</strong><span>Gunakan model sederhana yang menjelaskan hubungan antarvariabel.</span></li>
@@ -89,7 +109,7 @@
       </section>
     </main>
 
-    <footer><span>Flight Dynamics Lab v0.1.0</span><span>Living student portfolio · Portofolio yang terus bertumbuh.</span></footer>
+    <footer><span>Flight Dynamics Lab · v0.2 in progress</span><span>Living student portfolio · Portofolio yang terus bertumbuh.</span></footer>
     <script type="module" src="./src/app.js"></script>
   </body>
 </html>
