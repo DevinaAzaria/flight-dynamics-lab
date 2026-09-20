@@ -20,11 +20,12 @@ Flight is a useful bridge between classroom physics and engineering decisions. T
 
 The laboratory complements [`astronomy-lab`](https://github.com/DevinaAzaria/astronomy-lab) and supports Devina's longer-term interest in mechanical and aerospace engineering.
 
-## Experiments in v0.1
+## Current experiments
 
 1. **Aerodynamic forces** — calculates lift and drag from dynamic pressure and coefficients.
 2. **Stall speed** — estimates the minimum speed at which lift balances aircraft weight.
-3. **Glide performance** — converts lift-to-drag ratio into an approximate glide angle.\n4. **Performance envelope preview** — sweeps airspeed to visualize dynamic pressure and lift/drag trends.
+3. **Glide performance** — converts lift-to-drag ratio into an approximate glide angle.
+4. **Performance envelope preview** — sweeps airspeed to visualize dynamic pressure and lift/drag trends.
 
 ## Scientific assumptions
 
@@ -32,7 +33,7 @@ The laboratory complements [`astronomy-lab`](https://github.com/DevinaAzaria/ast
 - The aircraft is treated as steady and level for the lift calculation.
 - Stall speed uses a maximum lift coefficient and standard gravity.
 - Glide angle uses the simplified relation `tan(γ) = D/L`.
-- Real aircraft have compressibility, turbulence, Reynolds-number, trim, and three-dimensional effects that are outside v0.1.
+- Real aircraft have compressibility, turbulence, Reynolds-number, trim, and three-dimensional effects that are outside the current simplified model.
 
 ## Run locally
 
